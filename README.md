@@ -16,21 +16,6 @@ Once it is created, then upload a text document like that, and then the S3 bucke
 The last and final step is to create a Lambda function to analyze the text document we uploaded in the S3 bucket. 
 Here, I have created the function sentiment_lambda. We will use Python 3.8 for our runtime. The existing role myrole11111 we created earlier will be used with the Lambda function.
 Through the Lambda Management Console, we can access the created function, and then we will click on that to write a function code for performing our task of sentiment analysis using Python 3.8. Here, we will enter the name of the S3 bucket we created, and the key will be the name of the file to be analyzed (uploaded in the same bucket).
-import boto3
-from pprint import pprint
-def lambda_handler(event, context):
-    s3 = boto3.client("s3")
-    bucket = "j1111111"
-    key = "analysisdata.txt"
-    file = s3.get_object(Bucket = bucket, Key = key)
-    
-    analysisdata = str(file['Body'].read())
-
-    comprehend = boto3.client("comprehend")
-
-    sentiment = comprehend.detect_sentiment(Text = analysisdata, LanguageCode = "en")
-    print(sentiment)
-    
-    return 'Sentiment detected'
     Save your function code and then test your code to see the results with the analysis of the text you directed through your bucket and key.
-    Once you test your function code, it will give the results for your text. The section of results shows the logging calls in the code. They correspond to a single row within the CloudWatch log group with this Lambda function
+    Once you test your function code, it will give the results for your text. The section of results shows the logging calls in the code. They correspond to a single row within the CloudWatch log group with this 
+    Lambda function
