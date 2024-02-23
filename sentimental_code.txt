@@ -1,0 +1,12 @@
+import boto3
+from  pprint import pprint
+def lambda_handler(event, context):
+    s3=boto3.client("s3")
+    bucket="w2222"
+    key="bad.txt"
+    file=s3.get_object(Bucket=bucket,Key=key)
+    analysisdata=str(file['Body'].read())
+    comprehend=boto3.client("comprehend")
+    sentiment=comprehend.detect_sentiment(Text=analysisdata, LanguageCode="en")
+    print(sentiment)
+    return 'sentiment detected'
